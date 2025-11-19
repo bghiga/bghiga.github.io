@@ -6,7 +6,7 @@ set linesize 10000
 drop table ticket;
 drop table passenger;
 drop table reservation;
-drop table departures
+drop table departures;
 drop table equip_type;
 drop table pilots;
 drop table flight;
