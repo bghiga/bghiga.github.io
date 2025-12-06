@@ -35,6 +35,11 @@ window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("reviewArea").innerHTML = "";
         document.querySelectorAll(".error").forEach(span => span.textContent = "");
     });
+  fetchStates();
+  initWelcome();
+  initRememberMe();
+  initLocalStoragePrefill();
+  attachLocalStorageHandlers();
 });
 function setError(fieldId, message) {
   const span = document.getElementById(fieldId + "Error");
@@ -268,6 +273,25 @@ function validateIns() {
   }
   clearError("ins");
   return true;
+}
+async function fetchStates(){
+  const stateSelect = document.getElementById("state");
+  if (!stateSelect) return;
+
+  try {
+    const response = await fetch("states.html");
+    if(!response.ok){
+      throw new Error("HTTP error" + response.status);
+    }
+    const optionsHtml = await response.text();
+    stateSelect.innerHTML = optionsHtml;
+  } 
+  catch (err){
+    console.error("Error loading states:", err);
+    stateSelect.innerHTML = `
+    <option value ="">--Select One--</option>
+    <option value ="TX">Texas</option>`;
+  }
 }
 function validateAll() {
   let ok = true;
