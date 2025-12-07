@@ -293,6 +293,133 @@ async function fetchStates(){
     <option value ="TX">Texas</option>`;
   }
 }
+function setCookie(name, value, days) {
+  const d = new Date();
+  d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+  const expires = "expires=" + d.toUTCString();
+  document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+  const cname = name + "=";
+  const decoded = decodeURIComponent(document.cookie);
+  const parts = decoded.split(";");
+
+  for (let c of parts) {
+    c = c.trim();
+    if (c.indexOf(cname) === 0) {
+      return c.substring(cname.length, c.length);
+    }
+  }
+  return "";
+}
+
+function eraseCookie(name) {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+function clearLocalStorage() {
+  Object.keys(localStorage).forEach(key => {
+    if (key.startsWith("patientForm_")) {
+      localStorage.removeItem(key);
+    }
+  });
+}
+
+function initWelcome() {
+  const fnameCookie = getCookie("patientFirstName");
+  const welcomeMsg = document.getElementById("welcomeMsg");
+  const returningControls = document.getElementById("returningControls");
+  const cookieNameSpan = document.getElementById("cookieName");
+  const fnameInput = document.getElementById("fname");
+
+  if (fnameCookie) {
+    if (welcomeMsg) welcomeMsg.textContent = "Welcome back, " + fnameCookie + "!";
+    if (cookieNameSpan) cookieNameSpan.textContent = fnameCookie;
+    if (returningControls) returningControls.style.display = "block";
+
+    if (fnameInput && !fnameInput.value) {
+      fnameInput.value = fnameCookie;
+    }
+
+    const notYouChk = document.getElementById("notYouChk");
+    if (notYouChk) {
+      notYouChk.addEventListener("change", function () {
+        if (this.checked) {
+          eraseCookie("patientFirstName");
+          clearLocalStorage();
+          document.getElementById("registration").reset();
+          if (welcomeMsg) welcomeMsg.textContent = "Welcome, new user!";
+          if (returningControls) returningControls.style.display = "none";
+        }
+      });
+    }
+  } else {
+    if (welcomeMsg) welcomeMsg.textContent = "Welcome, new user!";
+  }
+}
+
+function initRememberMe() {
+  const rememberMe = document.getElementById("rememberMe");
+  const fnameInput = document.getElementById("fname");
+
+  if (!rememberMe || !fnameInput) return;
+
+  function handleRememberMe() {
+    const name = fnameInput.value.trim();
+    if (rememberMe.checked && name !== "") {
+      setCookie("patientFirstName", name, 2); 
+    } else {
+      eraseCookie("patientFirstName");
+      clearLocalStorage();
+    }
+  }
+
+  fnameInput.addEventListener("blur", handleRememberMe);
+  rememberMe.addEventListener("change", handleRememberMe);
+}
+function initLocalStoragePrefill() {
+  const fnameCookie = getCookie("patientFirstName");
+  if (!fnameCookie) return; 
+
+  const form = document.getElementById("registration");
+  if (!form) return;
+
+  const simpleIds = [
+    "mi","lname","addr1","addr2","city","state","zip",
+    "phone","dob","email","user","health","pain","notes","other"
+  ];
+
+  simpleIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const stored = localStorage.getItem("patientForm_" + id);
+    if (stored !== null) {
+      el.value = stored;
+    }
+  });
+
+  [
+    ["sex", "patientForm_sex"],
+    ["vacc", "patientForm_vacc"],
+    ["ins", "patientForm_ins"]
+  ].forEach(([name, key]) => {
+    const stored = localStorage.getItem(key);
+    if (!stored) return;
+    const group = form.querySelectorAll("[name='" + name + "']");
+    group.forEach(r => r.checked = (r.value === stored));
+  });
+
+  const condStored = localStorage.getItem("patientForm_cond");
+  if (condStored) {
+    let values = [];
+    try { values = JSON.parse(condStored); } catch (e) {}
+    const condBoxes = form.querySelectorAll("input[name='cond']");
+    condBoxes.forEach(cb => {
+      cb.checked = values.includes(cb.value);
+    });
+  }
+}
 function validateAll() {
   let ok = true;
 
