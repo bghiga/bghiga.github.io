@@ -25,6 +25,13 @@ Description:MIS 3371 HW4 enhances the previous assignments with .-->
                         <td>
                             <h1> True Medical</h1>
                             <div class="sub">Today's Date: <span id="today"></span></div>
+                            <div id="welcomeMessage"></div>
+                            <div id="returningControls" style="display:none; margin-top:5px;">
+                             <label>
+                              <input type="checkbox" id="notYouCheck">
+                              Not <span id="cookieName"></span>? Click here to start as a NEW USER.
+                             </label>
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -239,7 +246,13 @@ Description:MIS 3371 HW4 enhances the previous assignments with .-->
     </tr>
   </table>
 </fieldset>
-
+     <div class= "remember">
+      <label>
+       <input type="checkbox" id="rememberMe" checked>
+       Remember me on this device for 48 hours
+      </label>
+     </div>
+       <!-- BUTTONS SECTION -->
       <div class="actions">
         <input type="button" value="Review" onclick="reviewForm()">
         <input type="button" value="Validate" onclick="validateAll()">
