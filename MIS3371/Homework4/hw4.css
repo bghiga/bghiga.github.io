@@ -35,3 +35,30 @@ input.third{ width:160px; }
   display: block;
   min-height: 1em; 
 }
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+}
+#header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+}
+#footer{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  text-align: center;
+  padding: 10px 0;
+  
+}
+#panel{
+  margin-top: 140px;
+  margin-bottom: 80px;
+}
