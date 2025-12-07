@@ -378,6 +378,44 @@ function initRememberMe() {
   fnameInput.addEventListener("blur", handleRememberMe);
   rememberMe.addEventListener("change", handleRememberMe);
 }
+function attachLocalStorageHandlers() {
+  const form = document.getElementById("registration");
+  if (!form) return;
+
+  form.addEventListener("change", saveFieldToLocal);
+}
+
+function saveFieldToLocal(e) {
+  const el = e.target;
+  if (!el.id && !el.name) return;
+
+  if (["ssn", "pass", "pass2"].includes(el.id)) return;
+  if (el.id === "rememberMe" || el.id === "notYouChk") return;
+
+  const rememberMe = document.getElementById("rememberMe");
+  if (rememberMe && !rememberMe.checked) return;
+
+  if (el.type === "radio") {
+    const group = document.querySelectorAll("[name='" + el.name + "']");
+    const checked = Array.from(group).find(r => r.checked);
+    const key = "patientForm_" + el.name;
+    localStorage.setItem(key, checked ? checked.value : "");
+    return;
+  }
+
+  if (el.type === "checkbox") {
+    const group = document.querySelectorAll("[name='" + el.name + "']");
+    const key = "patientForm_" + el.name;
+    const checkedValues = Array.from(group)
+      .filter(c => c.checked)
+      .map(c => c.value);
+    localStorage.setItem(key, JSON.stringify(checkedValues));
+    return;
+  }
+
+  const key = "patientForm_" + (el.id || el.name);
+  localStorage.setItem(key, el.value);
+}
 function initLocalStoragePrefill() {
   const fnameCookie = getCookie("patientFirstName");
   if (!fnameCookie) return; 
