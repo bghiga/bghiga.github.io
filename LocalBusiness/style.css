@@ -6,6 +6,73 @@
   --light-gray: #f5f5f5;
   --border-gray: #e0e0e0;
 }
+body {
+  background: var(--white);
+  color: var(--charcoal);
+}
+.header {
+  background: var(--white);
+  border-bottom: 3px solid var(--tx-blue);
+}
+.btn {
+  background: var(--tx-blue);
+  color: var(--white);
+  border: none;
+}
+
+.btn:hover {
+  background: #162e66;
+}
+
+.btn--red {
+  background: var(--tx-red);
+}
+
+.btn--red:hover {
+  background: #8e0f1f;
+}
+.card,
+.serviceCard,
+.reviewCard {
+  background: var(--white);
+  border: 1px solid var(--border-gray);
+}
+.section--alt {
+  background: var(--light-gray);
+}
+h1, h2, h3 {
+  color: var(--tx-blue);
+}
+h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--tx-red);
+  margin-top: 8px;
+}
+.trustBar div {
+  background: var(--light-gray);
+  border-left: 4px solid var(--tx-red);
+  padding: 8px 12px;
+}
+.footer {
+  background: var(--charcoal);
+  color: var(--white);
+}
+
+.footer a {
+  color: var(--white);
+}
+.tx-stripe {
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    var(--tx-blue),
+    var(--white),
+    var(--tx-red)
+  );
+}
 :root { --max: 1100px; --pad: 18px; }
 
 *{ box-sizing:border-box; }
