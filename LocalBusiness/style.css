@@ -171,7 +171,12 @@ h2::after{
    LAYOUT SECTIONS
 ========================= */
 .hero{
-  padding: 34px 0;
+  padding: 44px 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(31, 60, 136, 0.05),
+    rgba(255, 255, 255, 1)
+  );
 }
 
 .hero__grid{
@@ -198,6 +203,9 @@ h2::after{
 /* =========================
    CARDS
 ========================= */
+.card{
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
 .card,
 .serviceCard,
 .reviewCard,
@@ -222,6 +230,17 @@ h2::after{
 .serviceCard:hover{
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+.serviceCard{
+  font-weight: 600;
+  border-radius: 14px;
+}
+
+.serviceCard:hover{
+  border-color: rgba(31,60,136,0.35);
+}
+#estimate{
+  border-top: 4px solid var(--tx-red);
 }
 
 /* =========================
