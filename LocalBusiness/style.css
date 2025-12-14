@@ -235,6 +235,10 @@ input:focus, textarea:focus{
   flex-wrap: wrap;
   margin-top: 14px;
 }
+.brand__logo {
+  width: 48px;
+  height: 48px;
+}
 
 /* =========================
    FINAL CTA
@@ -289,4 +293,7 @@ input:focus, textarea:focus{
 
   .nav.open{ display: flex; }
   .navToggle{ display: inline-block; }
+}
+section + section {
+  margin-top: 24px;
 }
