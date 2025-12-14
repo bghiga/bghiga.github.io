@@ -68,8 +68,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand__logo{
-  width: 98px;
-  height: 98px;
+  width: 128px;
+  height: 128px;
   object-fit: contain;
 }
 
