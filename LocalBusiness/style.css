@@ -374,6 +374,13 @@ input:focus, textarea:focus{
 }
 
 /* =========================
+   MOBILE CTA BAR
+========================= */
+.mobileCta{
+  display: none;
+}
+
+/* =========================
    RESPONSIVE
 ========================= */
 @media (max-width: 860px){
@@ -385,32 +392,7 @@ input:focus, textarea:focus{
     display: none;
     position: absolute;
     right: 18px;
-    top: 62px;
-    background: var(--white);
-    border: 1px solid var(--border-gray);
-    border-radius: 14px;
-    padding: 12px;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-
-  .nav.open{ display: flex; }
-  .navToggle{ display: inline-block; }
-}
-/* =========================
-   MOBILE CTA BAR
-========================= */
-.mobileCta{
-  display: none;
-}
-
-@media (max-width: 860px){
-  .nav{
-    display: none;
-    position: absolute;
-    right: 18px;
-    top: 74px;              
+    top: 74px;              /* moved down so it doesn’t overlap the hamburger */
     min-width: 220px;
     background: var(--white);
     border: 1px solid var(--border-gray);
@@ -419,9 +401,32 @@ input:focus, textarea:focus{
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
-    box-shadow: 0 16px 40px rgba(0,0,0,0.12);  
+    box-shadow: 0 16px 40px rgba(0,0,0,0.12);
   }
 
   .nav.open{ display: flex; }
   .navToggle{ display: inline-block; }
+
+  .mobileCta{
+    display: flex;
+    gap: 10px;
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 50;
+    padding: 10px;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid var(--border-gray);
+    border-radius: 16px;
+    backdrop-filter: blur(6px);
+  }
+
+  .mobileCta .btn{
+    flex: 1;
+  }
+
+  body{
+    padding-bottom: 90px; /* prevents CTA bar covering content */
+  }
 }
